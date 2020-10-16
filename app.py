@@ -11,7 +11,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/house')
+@app.route('/house', methods=['GET', 'POST'])
 def house():
     return render_template("house.html")
 
