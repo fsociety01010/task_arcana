@@ -6,31 +6,7 @@
 
 {% block body %}
 
-    <hr>
-    <h2>Add new announcement</h2>
-    <form action="/" method="post">
-        Title: <input type="text" name="title" id="title">
-        <br>
-        Location: <input type="text" name="location" id="location">
-        <br>
-        House or apartments: <input type="text" name="type" id="type">
-        <br>
-        Number of rooms: <input type="number" name="rooms" id="rooms">
-        <br>
-        Price: <input type="number" name="price" id="price">
-        <br>
-        Author: <input type="text" name="author" id="author">
-        <br>
-        Author id: <input type="number" name="author_id" id="author_id">
-        <br>
-        Description: <input type="text" name="description" id="description">
-        <br>
-        <input type="submit" value="Create">
-
-    </form>
-    <hr>
-
-    <h1>The list of all houses</h1>
+    <h1>House detail</h1>
 
     <table>
         <tr>
@@ -43,7 +19,6 @@
             <th>Description</th>
             <th>DateCreation</th>
         </tr>
-        {% for house in list_house %}
             <tr>
                 <th><a href="house/{{ house.id }}">{{ house.id }}</a></th>
                 <th>{{ house.title }}</th>
@@ -58,7 +33,6 @@
                     <th><a href="house/delete/{{ house.id }}">Delete</a></th>
                 {% endif %}
             </tr>
-        {% endfor %}
     </table>
 
 {% endblock %}

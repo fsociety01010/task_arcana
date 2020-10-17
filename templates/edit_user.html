@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Edit house</title>
+{% endblock %}
+
+{% block body %}
+    <hr>
+    <h2>Edit user </h2>
+    <form action="/" method="post">
+        Name: <input type="text" name="name" id="name">
+        <br>
+        Surname: <input type="text" name="surname" id="surname">
+        <br>
+        Phone number: <input type="text" name="phone_number" id="phone_number">
+        <br>
+        Birthday: <input type="number" name="birthday" id="birthday">
+        <br>
+        E-mail: <input type="text" name="email" id="email">
+        <input type="submit" value="Update">
+    </form>
+    <hr>
+{% endblock %}
