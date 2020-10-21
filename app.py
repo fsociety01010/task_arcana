@@ -2,60 +2,44 @@ from flask import Flask, render_template, url_for, session, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///houses.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///arcanaApp.db'
 db = SQLAlchemy(app)
+
 import models
 
-all_user = [
-    {
-        'name': 'Alex',
-        'surname': 'Agarkov',
-        'birthday': "22/03/1996",
-        'id': 1,
-        "password": 1
-    },
-    {
-        'name': 'Ira',
-        'surname': 'Agarkov',
-        'birthday': "29/06/1998",
-        'id': 2,
-        "password": 2
-    }
-]
-current_user_id = all_user[0]['id']
+current_user_id = 1
 
-#WORK
+
+# WORK
 # Show all list of house with "GET"
 # Can click at some house and it will pass to the announcement
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == 'GET':
-        all_house = models.getAllHouse()
-        return render_template('index.html', list_house=all_house, user_id=current_user_id)
-    else:
-        house = models.createHouse(request)
-        models.addHouse(house)
-        all_house = models.getAllHouse()
-        return render_template('index.html', list_house=all_house, user_id=current_user_id)
+    all_house = models.getAllHouse()
+    return render_template('index.html', houses=all_house, user_id=current_user_id)
 
-#WORK
+
+# WORK
 # Show the details of certain announcement
 @app.route('/house/<int:id>', methods=['GET'])
 def houseById(id):
     house = models.getHouseById(id)
-    return render_template('house_detail.html', house=house)
+    return render_template('house_detail.html', house=house, user_id=current_user_id)
 
 
+# work
+# CSS PROBLEM
 # Can update the information about the house if you are the owner
 @app.route('/house/edit/<int:id>', methods=['GET', 'POST'])
 def editHouseById(id):
     house = models.getHouseById(id)
     if house.author_id == current_user_id:
-        return render_template('edit_house.html', house=house)
+        return render_template('editHouse.html', house=house)
     else:
         return "Not permitted"
 
-#WORK
+
+# WORK
 # Can delete the house if you are the owner
 @app.route('/house/delete/<int:id>', methods=['GET'])
 def deleteHouseById(id):
@@ -66,30 +50,48 @@ def deleteHouseById(id):
     else:
         return "Not permitted"
 
-#WORK
+
+# WORK
+@app.route('/add/announcement', methods=['GET', 'POST'])
+def addAnouncement():
+    if request.method == 'GET':
+        return render_template('addAnouncement.html', user_id=current_user_id)
+    else:
+        house = models.createHouse(request)
+        models.addHouse(house)
+        all_house = models.getAllHouse()
+        return redirect(url_for('index'))
+
+
+# WORK
 @app.route('/user/<int:id>', methods=['GET'])
 def infoUser(id):
     user = models.getUserByid(id)
-    return render_template('user_details.html', user=user)
+    houses = models.getHouseByUser(id)
+    return render_template('user_details.html', user=user, houses = houses, user_id = current_user_id)
 
-
+#work
+# only css
 @app.route('/user/edit/<int:id>', methods=['GET', 'POST'])
 def editUser(id):
-   user = models.getUserByid(id)
-   return render_template('user_details.html', user = user)
+    user = models.getUserByid(id)
+    if (current_user_id == user.id):
+        return render_template('edit_user.html', user=user)
+    else:
+        return "Not permitted"
 
 
-@app.route('/search/city', methods=['GET', 'POST'])
+@app.route('/search/cities', methods=['GET', 'POST'])
 def allCities():
-    # Show the list of cities
-    return "cities......."
+    allCities = models.getAllLocations()
+    return render_template('allCities.html', allCities=allCities, user_id=current_user_id)
 
-
+#Work
+#Only CSS
 @app.route('/search/city/<string:city>', methods=['GET', 'POST'])
-def allHotelsInCity(city):
-    # Show the list  house in the city
-    # get all house from city
-    return "list of the house in city " + city
+def allAHouseByCity(city):
+    all_house = models.getHouseByCity(city)
+    return render_template('houseByCity.html', houses=all_house, user_id=current_user_id, city=city)
 
 
 @app.errorhandler(404)

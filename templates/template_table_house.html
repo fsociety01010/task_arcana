@@ -1,26 +1,17 @@
-{% extends 'base.html' %}
-
-{% block head %}
-    <title>Main page</title>
-{% endblock %}
-
-{% block body %}
-
-    <h1>House detail</h1>
-
-    <table class="table table-hover">
-        <tr class="headers">
-            <th>Id</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Location</th>
-            <th>Type</th>
-            <th>Rooms</th>
-            <th>Description</th>
-            <th>DateCreation</th>
-            <th>Owner</th>
-            <th colspan="2">God Mod (Modification)</th>
-        </tr>
+<table class="table table-hover table-bordered">
+    <tr class="headers">
+        <th>Id</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Location</th>
+        <th>Type</th>
+        <th>Rooms</th>
+        <th>Description</th>
+        <th>DateCreation</th>
+        <th>Owner</th>
+        <th colspan="2">God Mod (Modification)</th>
+    </tr>
+    {% for house in houses %}
         <tr>
             <th>{{ house.id }}</th>
             <th><a href="/house/{{ house.id }}">{{ house.title }}</a></th>
@@ -37,8 +28,6 @@
             {% else %}
                 <th colspan="2">Not permitted</th>
             {% endif %}
-
         </tr>
-    </table>
-
-{% endblock %}
+    {% endfor %}
+</table>

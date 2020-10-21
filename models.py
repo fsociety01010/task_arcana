@@ -3,12 +3,14 @@ from app import db
 
 
 class Client(db.Model):
+    __table_args__ = {'extend_existing': True}
     id = db.Column(db.INTEGER, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(50), nullable=False)
-    phone_number = db.Column(db.INTEGER, nullable=False, unique=True)
+    phone_number = db.Column(db.String(5), nullable=False, unique=False)
     birthday = db.Column(db.DateTime)
-    email = db.Column(db.String)
+    email = db.Column(db.String, nullable=False, unique=False)
+    password = db.Column(db.INTEGER, nullable=False)
 
     def __repr__(self):
         return 'Client created with id:' + str(self.id)
@@ -18,19 +20,21 @@ def addClient():
     new_client = Client(
         name='Alex',
         surname='Agarkov',
-        phone_number=621079526,
+        phone_number='10621a079526',
         birthday=datetime.utcnow(),
-        email='alexbmx@mail.ua'
+        email='alea1xbmaaaax@mail.ua',
+        password=123
     )
     db.session.add(new_client)
     db.session.commit()
+
 
 def getUserByid(id):
     return Client.query.get(id)
 
 
-
 class House(db.Model):
+    __table_args__ = {'extend_existing': True}
     id = db.Column(db.INTEGER, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     location = db.Column(db.String(50), nullable=False)
@@ -82,11 +86,18 @@ def update():
 def getHouseById(id):
     return House.query.get(id)
 
-
-getHouseById(1)
+def getHouseByUser(userId):
+    return House.query.filter(House.author_id == userId).all()
 
 
 def deleteHouse(id):
     House.query.filter(House.id == id).delete()
     db.session.commit()
 
+
+def getAllLocations():
+    return House.query.filter(House.location).all()
+
+
+def getHouseByCity(city):
+    return House.query.filter(House.location == city).all()

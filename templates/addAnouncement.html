@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Add anouncement</title>
+{% endblock %}
+
+{% block body %}
+
+    <h1>Add announcement</h1>
+    <div class="form-row">
+        <form action="/add/announcement" method="post">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" name="title" id="title" required>
+            <br>
+            <label for="location">Location</label>
+            <input class="form-control" type="text" name="location" id="location"
+                   required>
+            <br>
+            <label for="type">House or apartments</label>
+            <input class="form-control" type="text" name="type" id="type" required>
+            <br>
+            <label for="number">Number of rooms</label>
+            <input class="form-control" type="number" name="rooms" id="rooms" required>
+            <br>
+            <label for="price">Price</label>
+            <input class="form-control" type="number" name="price" id="price" required>
+            <br>
+            <label for="author">Author</label>
+            <input class="form-control" type="text" name="author" id="author" value="{{ user_id }}" readonly>
+            <br>
+            <label for="author_id">Author id</label>
+            <input class="form-control" type="number" name="author_id" id="author_id"
+                   value="{{ user_id }}" readonly>
+            <br>
+            <label for="description">Description</label>
+            <textarea class="form-control" type="text" name="description" id="description"
+                      required></textarea>
+            <br>
+            <input type="submit" value="Create">
+        </form>
+    </div>
+
+{% endblock %}

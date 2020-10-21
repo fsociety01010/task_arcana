@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Main page</title>
+{% endblock %}
+
+{% block body %}
+
+    <h1>The list of all houses</h1>
+
+    <table class="table table-hover table-bordered">
+        <tr class="headers">
+            <th>City</th>
+        </tr>
+        {% for city in allCities %}
+            <tr>
+                <th>{{ house.id }}</th>
+                <th><a href="house/{{ house.id }}">{{ house.title }}</a></th>
+                <th>{{ house.price }}</th>
+                <th>{{ house.location }}</th>
+                <th>{{ house.type }}</th>
+                <th>{{ house.rooms }}</th>
+                <th>{{ house.description }}</th>
+                <th>{{ house.dateCreation }}</th>
+                <th><a href="/user/{{ house.author_id }}">{{ house.author }}</a></th>
+                {% if house.author_id == user_id %}
+                    <th><a href="house/edit/{{ house.id }}">Edit</a></th>
+                    <th><a href="house/delete/{{ house.id }}">Delete</a></th>
+                {% else %}
+                    <th colspan="2">Not permitted</th>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

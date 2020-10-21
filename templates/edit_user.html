@@ -1,23 +1,31 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>Edit house</title>
+    <title>Edit user</title>
 {% endblock %}
 
 {% block body %}
-    <hr>
-    <h2>Edit user </h2>
-    <form action="/" method="post">
-        Name: <input type="text" name="name" id="name">
-        <br>
-        Surname: <input type="text" name="surname" id="surname">
-        <br>
-        Phone number: <input type="text" name="phone_number" id="phone_number">
-        <br>
-        Birthday: <input type="number" name="birthday" id="birthday">
-        <br>
-        E-mail: <input type="text" name="email" id="email">
-        <input type="submit" value="Update">
-    </form>
-    <hr>
+
+    <h2>Edit user</h2>
+    <div class="form-row">
+        <form action="/" method="post">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" name="name" id="name" value={{ user.name }} required>
+            <br>
+            <label for="surname">Surname</label>
+            <input class="form-control" type="text" name="surname" id="surname"
+                   value={{ user.surname }} required>
+            <br>
+            <label for="phone_number">Phone number</label>
+            <input class="form-control" type="text" name="phone_number" id="phone_number" value={{ user.phone_number }} required>
+            <br>
+            <label for="birthday">Date of Birthday</label>
+            <input class="form-control" type="text" name="birthday" id="birthday" value={{ user.birthday }} required>
+            <br>
+            <label for="email">Email</label>
+            <input class="form-control" type="text" name="email" id="email" value={{ user.email }} required>
+            <br>
+            <input type="submit" value="Update">
+        </form>
+    </div>
 {% endblock %}

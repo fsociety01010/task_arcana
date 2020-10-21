@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Main page</title>
+{% endblock %}
+{% block body%}
+
+<h2>Edit announcement</h2>
+    <div class="form-row">
+        <form action="/" method="post">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" name="title" id="title" value={{ house.title }} required>
+            <br>
+            <label for="location">Location</label>
+            <input class="form-control" type="text" name="location" id="location"
+                   value={{ house.location }} required>
+            <br>
+            <label for="type">House or apartments</label>
+            <input class="form-control" type="text" name="type" id="type" value={{ house.type }} required>
+            <br>
+            <label for="number">Number of rooms</label>
+            <input class="form-control" type="number" name="rooms" id="rooms" value={{ house.rooms }} required>
+            <br>
+            <label for="price">Price</label>
+            <input class="form-control" type="number" name="price" id="price" value={{ house.price }} required>
+            <br>
+            <label for="author">Author</label>
+            <input class="form-control" type="text" name="author" id="author" value={{ house.author }} required>
+            <br>
+            <label for="author_id">Author id</label>
+            <input class="form-control" type="number" name="author_id" id="author_id"
+                   value={{ house.author_id }} required>
+            <br>
+            <label for="description">Description</label>
+            <textarea class="form-control" type="text" name="description" id="description"
+                      required>{{ house.description }}</textarea>
+            <br>
+            <input type="submit" value="Update">
+        </form>
+    </div>
+
+{% endblock %}
+
+

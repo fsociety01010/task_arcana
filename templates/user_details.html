@@ -1,31 +1,39 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>Main page</title>
+    <title>User Details</title>
 {% endblock %}
 
 {% block body %}
-    <h1>The list of all houses</h1>
+    <h1>User Details</h1>
 
-    <table>
-        <tr>
+    <table class="table table-hover">
+        <tr class="header">
+            <th>Id</th>
             <th>Name</th>
             <th>Surname</th>
-            <th>phone_number</th>
-            <th>birthday</th>
-            <th>email</th>
+            <th>Phone_number</th>
+            <th>Birthday</th>
+            <th>Email</th>
+
         </tr>
-            <tr>
-                <th>{{ user.name }}</th>
-                <th>{{ user.surname }}</th>
-                <th>{{ user.phone_number }}</th>
-                <th>{{ user.birthday }}</th>
-                <th>{{ user.email }}</th>
-{#                {% if house.author_id == user_id %}#}
-{#                    <th><a href="house/edit/{{ house.id }}">Edit</a></th>#}
-{#                    <th><a href="house/delete/{{ house.id }}">Delete</a></th>#}
-{#                {% endif %}#}
-            </tr>
+        <tr>
+            <th>{{ user.id }}</th>
+            <th>{{ user.name }}</th>
+            <th>{{ user.surname }}</th>
+            <th>{{ user.phone_number }}</th>
+            <th>{{ user.birthday }}</th>
+            <th>{{ user.email }}</th>
+
+            {#            {% if house.author_id == user_id %}#}
+            {#                <th><a href="house/edit/{{ house.id }}">Edit</a></th>#}
+            {#                <th><a href="house/delete/{{ house.id }}">Delete</a></th>#}
+            {#            {% endif %}#}
+        </tr>
     </table>
+
+    <h1>The list of user's houses</h1>
+
+    {% include 'template_table_house.html' %}
 
 {% endblock %}
