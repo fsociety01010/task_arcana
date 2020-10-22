@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, session, request, redirect
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -7,40 +7,44 @@ db = SQLAlchemy(app)
 
 import models
 
+
 current_user_id = 1
+current_user_name = "Alex Agarkov"
 
 
-# WORK
-# Show all list of house with "GET"
-# Can click at some house and it will pass to the announcement
+# Show all list of announcements
 @app.route('/', methods=['GET'])
 def index():
     all_house = models.getAllHouse()
     return render_template('index.html', houses=all_house, user_id=current_user_id)
 
 
-# WORK
 # Show the details of certain announcement
 @app.route('/house/<int:id>', methods=['GET'])
 def houseById(id):
     house = models.getHouseById(id)
-    return render_template('house_detail.html', house=house, user_id=current_user_id)
+    return render_template('houseDetail.html', house=house, user_id=current_user_id)
 
 
-# work
-# CSS PROBLEM
 # Can update the information about the house if you are the owner
 @app.route('/house/edit/<int:id>', methods=['GET', 'POST'])
-def editHouseById(id):
-    house = models.getHouseById(id)
-    if house.author_id == current_user_id:
-        return render_template('editHouse.html', house=house)
-    else:
-        return "Not permitted"
+def editAnnouncementById(id):
+    if request.method == 'GET':
+        house = models.getHouseById(id)
+        if house.author_id == current_user_id:
+            return render_template('editHouse.html', house=house, user_id = current_user_id)
+        else:
+            return "Not permitted"
+    elif request.method == 'POST':
+        house = models.getHouseById(id)
+        if house.author_id == current_user_id:
+            models.editHouse(request)
+            return redirect(url_for('index'))
+        else:
+            return "Not permitted"
 
 
-# WORK
-# Can delete the house if you are the owner
+# It's possible to delete the house if you are the owner
 @app.route('/house/delete/<int:id>', methods=['GET'])
 def deleteHouseById(id):
     house = models.getHouseById(id)
@@ -51,49 +55,57 @@ def deleteHouseById(id):
         return "Not permitted"
 
 
-# WORK
+# Add the new announcement to the DB
 @app.route('/add/announcement', methods=['GET', 'POST'])
-def addAnouncement():
+def addAnnouncement():
     if request.method == 'GET':
-        return render_template('addAnouncement.html', user_id=current_user_id)
+        return render_template('addAnouncement.html', user_id=current_user_id, user_name = current_user_name)
     else:
         house = models.createHouse(request)
         models.addHouse(house)
-        all_house = models.getAllHouse()
         return redirect(url_for('index'))
 
 
-# WORK
+# Show the information about the user and his announcement
 @app.route('/user/<int:id>', methods=['GET'])
 def infoUser(id):
     user = models.getUserByid(id)
     houses = models.getHouseByUser(id)
-    return render_template('user_details.html', user=user, houses = houses, user_id = current_user_id)
+    return render_template('userDetails.html', user=user, houses=houses, user_id=current_user_id)
 
-#work
-# only css
+
+# Update/Edit information about current user
 @app.route('/user/edit/<int:id>', methods=['GET', 'POST'])
 def editUser(id):
-    user = models.getUserByid(id)
-    if (current_user_id == user.id):
-        return render_template('edit_user.html', user=user)
+    if (request.method == "GET"):
+        user = models.getUserByid(id)
+        if (current_user_id == user.id):
+            return render_template('editUser.html', user=user, user_id=user.id)
+        else:
+            return "Not permitted"
     else:
-        return "Not permitted"
+        user = models.getUserByid(id)
+        if (current_user_id == user.id):
+            models.updateUserInformation(request)
+            return redirect(url_for("index"))
+        else:
+            return "Not permitted"
 
 
+# Show the list of the cities of announcement
 @app.route('/search/cities', methods=['GET', 'POST'])
 def allCities():
     allCities = models.getAllLocations()
     return render_template('allCities.html', allCities=allCities, user_id=current_user_id)
 
-#Work
-#Only CSS
-@app.route('/search/city/<string:city>', methods=['GET', 'POST'])
+
+# Show the announcement in certain city
+@app.route('/search/city/<string:city>', methods=['GET'])
 def allAHouseByCity(city):
     all_house = models.getHouseByCity(city)
     return render_template('houseByCity.html', houses=all_house, user_id=current_user_id, city=city)
 
-
+#Error page
 @app.errorhandler(404)
 def page_not_found(error):
     # return render_template('page_not_found.html'), 404

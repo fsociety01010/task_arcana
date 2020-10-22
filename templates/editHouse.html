@@ -7,13 +7,13 @@
 
 <h2>Edit announcement</h2>
     <div class="form-row">
-        <form action="/" method="post">
+        <form action="/house/edit/{{ house.id }}" method="post">
             <label for="title">Title</label>
-            <input class="form-control" type="text" name="title" id="title" value={{ house.title }} required>
+            <input class="form-control" type="text" name="title" id="title" value="{{ house.title }}" required>
             <br>
             <label for="location">Location</label>
             <input class="form-control" type="text" name="location" id="location"
-                   value={{ house.location }} required>
+                   value="{{ house.location }}" required>
             <br>
             <label for="type">House or apartments</label>
             <input class="form-control" type="text" name="type" id="type" value={{ house.type }} required>
@@ -25,11 +25,15 @@
             <input class="form-control" type="number" name="price" id="price" value={{ house.price }} required>
             <br>
             <label for="author">Author</label>
-            <input class="form-control" type="text" name="author" id="author" value={{ house.author }} required>
+            <input class="form-control" type="text" name="author" id="author" value={{ house.author }} readonly>
             <br>
             <label for="author_id">Author id</label>
             <input class="form-control" type="number" name="author_id" id="author_id"
-                   value={{ house.author_id }} required>
+                   value={{ house.author_id }} readonly>
+            <br>
+            <label for="id">Announcement id</label>
+            <input class="form-control" type="number" name="id" id="id"
+                   value={{ house.id }} readonly>
             <br>
             <label for="description">Description</label>
             <textarea class="form-control" type="text" name="description" id="description"

@@ -15,7 +15,9 @@
             <th>Phone_number</th>
             <th>Birthday</th>
             <th>Email</th>
-
+            {% if user.id == user_id %}
+                <th>Edit information</th>
+            {% endif %}
         </tr>
         <tr>
             <th>{{ user.id }}</th>
@@ -24,11 +26,9 @@
             <th>{{ user.phone_number }}</th>
             <th>{{ user.birthday }}</th>
             <th>{{ user.email }}</th>
-
-            {#            {% if house.author_id == user_id %}#}
-            {#                <th><a href="house/edit/{{ house.id }}">Edit</a></th>#}
-            {#                <th><a href="house/delete/{{ house.id }}">Delete</a></th>#}
-            {#            {% endif %}#}
+            {% if user.id == user_id %}
+                <th><a href="/user/edit/{{ user.id }}">Edit</a></th>
+            {% endif %}
         </tr>
     </table>
 
