@@ -26,5 +26,4 @@
 # The server starts at next adress
 > http://127.0.0.1:5000/
 >
-> or just use next link
-> https://test-app-agarkov-arcana.herokuapp.com/
+# or just visit the site with this link - https://test-app-agarkov-arcana.herokuapp.com/
