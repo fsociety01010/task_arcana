@@ -22,7 +22,7 @@
             <th>{{ house.description }}</th>
             <th>{{ house.dateCreation }}</th>
             <th><a href="/user/{{ house.author_id }}">{{ house.author }}</a></th>
-            {% if house.author_id == user_id %}
+            {% if house.author_id == current_user.id %}
                 <th><a href="/house/edit/{{ house.id }}">Edit</a></th>
                 <th><a href="/house/delete/{{ house.id }}">Delete</a></th>
             {% else %}

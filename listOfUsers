@@ -1,0 +1,28 @@
+users = {{
+  "email": agarkovalexandre@gmail.com,
+  "password": 12345
+},{
+  "email": donaldtrump@gmail.com,
+  "password": 12345
+},{
+  "email": macron@neuf.fr,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+}}

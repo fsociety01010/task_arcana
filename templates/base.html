@@ -10,16 +10,36 @@
 </head>
 <body>
 <div class="fullBody">
-<div class="menu">
-    <a href="/">Main Page</a>
-    <a href="/add/announcement">Add announcement</a>
-    <a href="/search/cities">The list of all cities</a>
-    <a href="/user/edit/{{user_id}}">Edit profile</a>
-    <hr>
-</div>
-{% block body %}
+    <div class="menu">
+        <a href="{{ url_for('index') }}">Main Page</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('addAnnouncement') }}">Add announcement</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Your need to login or sign up for create an annnouncement</a>
+        {% endif %}
 
-{% endblock %}
+        <a href="{{ url_for('allCities') }}">The list of all cities</a>
+        {% if current_user.is_authenticated %}
+            <a href=" {{ url_for('editUser' , id = current_user.id) }}  ">Edit profile</a>
+        {% endif %}
+        <div class="auth">
+            {% if not current_user.is_authenticated %}
+                <a href=" {{ url_for('login') }}">Log in</a>
+                <a href=" {{ url_for('signUp') }}">Sign Up</a>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+                <a href=" {{ url_for('logout') }}">Log out</a>
+            {% endif %}
+        </div>
+        {% if current_user.is_authenticated %}
+            <h1>Hello, {{ current_user.name + " " + current_user.surname }}</h1>
+        {% endif %}
+
+        <hr>
+    </div>
+    {% block body %}
+
+    {% endblock %}
 </div>
 </body>
 </html>

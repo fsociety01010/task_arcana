@@ -1,36 +1,45 @@
 from datetime import datetime
 
 import sqlalchemy
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 
 from app import db
 
 
-class Client(db.Model):
+class Client(UserMixin, db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.INTEGER, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(5), nullable=False, unique=False)
-    birthday = db.Column(db.String(11),nullable=False)
+    birthday = db.Column(db.String(11), nullable=False)
     email = db.Column(db.String, nullable=False, unique=False)
     password = db.Column(db.INTEGER, nullable=False)
 
     def __repr__(self):
-        return 'Client created with id:' + str(self.id)
+        return 'User/Client with id:' + \
+               str(self.id) + " " + \
+               str(self.name + " " + self.surname + "\n")
 
-#rebuild
-# TO DO
-def addUser():
-    new_client = Client(
-        name='Alex',
-        surname='Agarkov',
-        phone_number='10621a079526',
-        birthday=datetime.utcnow(),
-        email='alea1xbmaaaax@mail.ua',
-        password=123
-    )
-    db.session.add(new_client)
+
+def addClient(request):
+    newClient = createClient(request)
+    db.session.add(newClient)
     db.session.commit()
+
+
+def createClient(request):
+    name_ = request.form['name']
+    surname_ = request.form['surname']
+    phone_number_ = request.form['phone_number']
+    birthday_ = request.form['birthday']
+    email_ = request.form['email']
+    password_ = request.form['password']
+    password_ = generate_password_hash(password_, method='sha256')
+    return Client(name=name_, surname=surname_, phone_number=phone_number_, birthday=birthday_, email=email_,
+                  password=password_)
+
 
 def updateUserInformation(request):
     id_ = request.form['id']
@@ -40,13 +49,14 @@ def updateUserInformation(request):
     client.phone_number = request.form['phone_number']
     client.birthday = request.form['birthday']
     client.email = request.form['email']
-    client.password = request.form['password']
+    client.password = generate_password_hash( request.form['password'], method='sha256')
 
     userAnnouncement = House.query.filter(House.author_id == client.id).all()
     for announcement in userAnnouncement:
         announcement.author = client.name + " " + client.surname
 
     db.session.commit()
+
 
 def getUserByid(id):
     return Client.query.get(id)
@@ -63,20 +73,16 @@ class House(db.Model):
     description = db.Column(db.Text, nullable=False)
     author = db.Column(db.String, nullable=False)
     author_id = db.Column(db.INTEGER, nullable=False)
-    dateCreation = db.Column(db.DateTime, nullable=False, default=sqlalchemy.sql.func.now() )
+    dateCreation = db.Column(db.DateTime, nullable=False, default=sqlalchemy.sql.func.now())
 
     def __repr__(self):
-        return 'Announcement created with id:' + str(self.id)
+        return 'Announcement of the house created with id:' + str(self.id)
 
 
-# python
-# from models import db  - WARNING import db only from the .py where u have models
-# db.create_all()
-# from models import House
 
-
-def addHouse(house):
-    db.session.add(house)
+def addHouse(request):
+    newHouse = createHouse(request)
+    db.session.add(newHouse)
     db.session.commit()
 
 
@@ -109,6 +115,7 @@ def deleteHouse(id):
     House.query.filter(House.id == id).delete()
     db.session.commit()
 
+
 def editHouse(request):
     id_ = request.form['id']
     house = House.query.filter(House.id == id_).first()
@@ -120,6 +127,7 @@ def editHouse(request):
     house.description = request.form['description']
     db.session.commit()
 
+
 def getAllLocations():
     assurances = []
     for assurance in House.query.distinct(House.location):
@@ -130,3 +138,10 @@ def getAllLocations():
 
 def getHouseByCity(city):
     return House.query.filter(House.location == city).all()
+
+
+def getAllUser():
+    user = Client.query.all()
+    print(len(user))
+    print(user)
+

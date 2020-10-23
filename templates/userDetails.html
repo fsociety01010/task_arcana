@@ -15,7 +15,7 @@
             <th>Phone_number</th>
             <th>Birthday</th>
             <th>Email</th>
-            {% if user.id == user_id %}
+            {% if user.id == current_user.id %}
                 <th>Edit information</th>
             {% endif %}
         </tr>

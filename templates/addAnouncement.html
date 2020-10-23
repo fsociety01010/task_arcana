@@ -26,11 +26,11 @@
             <input class="form-control" type="number" name="price" id="price" required>
             <br>
             <label for="author">Author</label>
-            <input class="form-control" type="text" name="author" id="author" value="{{ user_name }}" readonly>
+            <input class="form-control" type="text" name="author" id="author" value="{{ current_user.name + current_user.surname }} " readonly>
             <br>
             <label for="author_id">Author id</label>
             <input class="form-control" type="number" name="author_id" id="author_id"
-                   value="{{ user_id }}" readonly>
+                   value="{{ current_user.id }}" readonly>
             <br>
             <label for="description">Description</label>
             <textarea class="form-control" type="text" name="description" id="description"

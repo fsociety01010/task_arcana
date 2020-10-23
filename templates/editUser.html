@@ -8,28 +8,28 @@
 
     <h2>Edit user</h2>
     <div class="form-row">
-        <form action="/user/edit/{{user.id}}" method="post">
+        <form action="/user/edit/{{current_user.id}}" method="post">
             <label for="id">Id</label>
-            <input class="form-control" type="number" name="id" id="id" value="{{ user.id }}" readonly>
+            <input class="form-control" type="number" name="id" id="id" value="{{ current_user.id }}" readonly>
             <br>
             <label for="name">Name</label>
-            <input class="form-control" type="text" name="name" id="name" value="{{ user.name }}" required>
+            <input class="form-control" type="text" name="name" id="name" value="{{ current_user.name }}" required>
             <br>
             <label for="surname">Surname</label>
             <input class="form-control" type="text" name="surname" id="surname"
-                   value="{{ user.surname }}" required>
+                   value="{{ current_user.surname }}" required>
             <br>
             <label for="phone_number">Phone number</label>
-            <input class="form-control" type="text" name="phone_number" id="phone_number" value="{{ user.phone_number }}" required>
+            <input class="form-control" type="text" name="phone_number" id="phone_number" value="{{ current_user.phone_number }}" required>
             <br>
             <label for="birthday">Date of Birthday</label>
-            <input class="form-control" type="text" name="birthday" id="birthday" value={{ user.birthday }} required>
+            <input class="form-control" type="text" name="birthday" id="birthday" value={{ current_user.birthday }} required>
             <br>
             <label for="email">Email</label>
-            <input class="form-control" type="text" name="email" id="email" value="{{ user.email }}" required>
+            <input class="form-control" type="email" name="email" id="email" value="{{ current_user.email }}" required>
             <br>
             <label for="password">Password</label>
-            <input class="form-control" type="text" name="password" id="password" value="{{ user.password }}" required>
+            <input class="form-control" type="text" name="password" id="password" value="{{ current_user.password }}" required>
             <br>
             <input type="submit" value="Update">
         </form>
