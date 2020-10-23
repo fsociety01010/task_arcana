@@ -27,3 +27,33 @@
 > http://127.0.0.1:5000/
 >
 # or just visit the site with this link - https://test-app-agarkov-arcana.herokuapp.com/
+---
+# The list of current users (@see listOfUsers)
+users = {{
+  "email": agarkovalexandre@gmail.com,
+  "password": 12345
+},{
+  "email": donaldtrump@gmail.com,
+  "password": 12345
+},{
+  "email": macron@neuf.fr,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+},{
+  "email": ,
+  "password":12345
+}}
