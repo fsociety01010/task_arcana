@@ -1,7 +1,7 @@
 ## Its my testing task for the company "Arcane"
 ## Developed by Agarkov Oleksandr
 
-## I have realised all CRUD operations for announcement and update/read for users
+## I have realised all CRUD operations for announcement and create/update/read for users
 
 
 ## Also you have the list of the city to see the list of houses in certain city. When u will click on the city u will see the list of houses in this city
