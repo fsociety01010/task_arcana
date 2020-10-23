@@ -49,7 +49,7 @@ def updateUserInformation(request):
     client.phone_number = request.form['phone_number']
     client.birthday = request.form['birthday']
     client.email = request.form['email']
-    client.password = generate_password_hash( request.form['password'], method='sha256')
+    client.password = generate_password_hash(request.form['password'], method='sha256')
 
     userAnnouncement = House.query.filter(House.author_id == client.id).all()
     for announcement in userAnnouncement:
@@ -77,7 +77,6 @@ class House(db.Model):
 
     def __repr__(self):
         return 'Announcement of the house created with id:' + str(self.id)
-
 
 
 def addHouse(request):
@@ -142,6 +141,4 @@ def getHouseByCity(city):
 
 def getAllUser():
     user = Client.query.all()
-    print(len(user))
-    print(user)
-
+    return user

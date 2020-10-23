@@ -17,9 +17,6 @@ login_manager.init_app(app)
 import auth
 import models
 
-
-
-
 # Show all list of announcements
 @app.route('/', methods=['GET'])
 def index():
