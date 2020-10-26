@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/task_arcana.iml" filepath="$PROJECT_DIR$/.idea/task_arcana.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../task_arcane/.idea/task_arcane.iml" filepath="$PROJECT_DIR$/../task_arcane/.idea/task_arcane.iml" />
     </modules>
   </component>
 </project>
