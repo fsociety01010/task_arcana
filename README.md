@@ -15,12 +15,12 @@
 ## To run the server you need to have installed flask and SQLAlchemy
 ## After just run next commands in the Terminal/Shell
 # For Linux
-> 1) export FLASK_APP=hello
+> 1) export FLASK_APP=app
 > 2) flask run
 
 
 # For Windows
-> 1) set FLASK_APP=hello
+> 1) set FLASK_APP=app
 > 2) flask run
 
 # The server starts at next adress
