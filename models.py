@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import bcrypt as bcrypt
 import sqlalchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
@@ -49,7 +50,8 @@ def updateUserInformation(request):
     client.phone_number = request.form['phone_number']
     client.birthday = request.form['birthday']
     client.email = request.form['email']
-    client.password = generate_password_hash(request.form['password'], method='sha256')
+    if(request.form['password']):
+        client.password = generate_password_hash(request.form['password'], method='sha256')
 
     userAnnouncement = House.query.filter(House.author_id == client.id).all()
     for announcement in userAnnouncement:
@@ -59,7 +61,7 @@ def updateUserInformation(request):
 
 
 def getUserByid(id):
-    return Client.query.get(id)
+    return  Client.query.get(id)
 
 
 class House(db.Model):

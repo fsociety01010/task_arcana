@@ -86,6 +86,7 @@ def infoUser(id):
 def editUser(id):
     if (request.method == "GET"):
         user = models.getUserByid(id)
+
         if (current_user.id == user.id):
             return render_template('editUser.html')
         else:
